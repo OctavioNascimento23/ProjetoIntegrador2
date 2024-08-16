@@ -8,7 +8,7 @@
 
 ## Recursos Utilizados
 - HTML
- [![Python](https://img.shields.io/badge/HTML-3.8-blue)](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+  [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 - SQL
   ![SQL](https://img.shields.io/badge/SQL-MySQL-lightgrey)
 - JavaScript
