@@ -8,11 +8,11 @@
 
 ## Recursos Utilizados
 - HTML
-  [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-- SQL
-  ![SQL](https://img.shields.io/badge/SQL-MySQL-lightgrey)
+  ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+- Oracle / SQL
+  ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white)
 - JavaScript
-  https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
+  ![JS](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 - Visual Studio Code
   ![VSCode](https://img.shields.io/badge/VSCode-latest-blueviolet)
 
