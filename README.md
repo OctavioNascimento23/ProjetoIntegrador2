@@ -1,4 +1,4 @@
-Projeto Integrador 2
+ # Projeto Integrador 2
  ## Integrantes
  Eduardo Sanvido, Henrique C. da Silva, Luiz F. Salles Alves, Nando Balzaneli e Octávio Nascimento.
 
