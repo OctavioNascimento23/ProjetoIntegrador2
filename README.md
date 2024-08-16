@@ -14,4 +14,4 @@
 - ![VSCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 
 ## Conclusão
- O nosso projeto integrador irá contribuir com um sistema simples de controle de estoque, onde será possível cadastrar produtos em um banco de dados. Ele será avaliado pelo professor Marcelo Chancon da PUC.
+a editar
