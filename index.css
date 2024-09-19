@@ -1,0 +1,31 @@
+#background {
+    width: fit-content;
+    height: fit-content;
+    opacity: 30%;
+}
+
+body {
+    background-image: url('imagemAcademia.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+}
+
+#FonteTitulo {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: bolder;
+    font-style: normal;
+}
+
+#FonteSubtitulo{
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+main{
+    align-items: center;
+    justify-content: center;
+    
+}
+      
