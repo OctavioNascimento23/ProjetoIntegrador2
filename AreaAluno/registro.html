@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Registro</title>
-    <link rel="stylesheet" href="../Style/style.css">
+    <title>Registro</title>
+    <link rel="stylesheet" href="style.css"> <!-- Ajuste o caminho conforme necessário -->
 </head>
 <body>
-    <div id="principal">
-        <form action="/submit" method="post">
-            <label for="nome">Nome Completo</label><br>
-            <input type="text" id="nome" name="nome" placeholder="Aluno dos Santos Nascimento" required><br><br>
+    <main id="principal">
+        <h2>Registro</h2>
+        <form action="/registro" method="POST" id="registroForm">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+            
+            <label for="cpf">CPF:</label>
+            <input type="text" name="cpf" id="cpf" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+            
+            <label for="endereco">Endereço:</label>
+            <input type="text" name="endereco" id="endereco" required>
 
-            <label for="cpf">CPF</label><br>
-            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required><br><br>
-
-            <label for="email">Email</label><br>
-            <input type="email" id="email" name="email" placeholder="aluno@gmail.com" required><br><br>
-
-            <label for="endereco">Endereço de Cobrança</label><br>
-            <input type="text" id="endereco" name="endereco" placeholder="Rua do Aluno, 000" required><br><br>
-
-            <button type="submit" id="form">Registrar</button>
+            <button type="submit">Registrar</button>
         </form>
-    </div>
+        <p id="message"></p> <!-- Para mensagens de sucesso ou erro -->
+    </main>
+    <script>
+        // JavaScript para o registro...
+    </script>
 </body>
 </html>
