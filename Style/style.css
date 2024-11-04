@@ -119,3 +119,13 @@ button#registrar:hover {
     width: 400px;
 }
 
+#loginForm {
+    position: relative;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    width: 300px; /* Definindo a largura do formulário */
+}
