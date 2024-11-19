@@ -1,21 +1,25 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Carregar variáveis de ambiente
+dotenv.config();
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // Para processar dados JSON no corpo da requisição
+app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configuração do banco de dados MySQL
 const dbConfig = {
-    host: "localhost",
-    user: "root",    // Substitua pelo seu usuário MySQL
-    password: "sua nova senha",  // Substitua pela sua senha MySQL
-    database: "projeto2"
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "sua nova senha",
+    database: process.env.DB_NAME || "projeto2"
 };
 
 // Função para conectar ao MySQL e executar uma query
@@ -39,57 +43,54 @@ async function queryMySQL(sql, params = []) {
     }
 }
 
-// Servir arquivos estáticos (para HTML, CSS, JS etc.)
+// Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'AreaAluno')));
 
-// Servir a página inicial (index.html)
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'AreaAluno', 'index.html'));
-});
+// Servir a página principal (catraca)
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'AreaAluno', 'catraca.html')));
 
-// Servir a página de login (entrar.html)
-app.get('/entrar.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'AreaAluno', 'entrar.html'));
-});
-
-// Servir a página de registro (registro.html)
-app.get('/registro.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'AreaAluno', 'registro.html'));
-});
-
-// Rota para realizar o login
-app.post('/login', async (req, res) => {
+// Rota para registrar entrada
+app.post('/entrada', async (req, res) => {
     const { cpf } = req.body;
 
-    const sql = `SELECT * FROM users WHERE cpf = ?`;
-    const params = [cpf];
-
     try {
-        const result = await queryMySQL(sql, params);
-        if (result.length > 0) {
-            // CPF encontrado, login bem-sucedido
-            res.json({ success: true, message: "Login bem-sucedido!" });
-        } else {
-            // CPF não encontrado, solicitar registro
-            res.json({ success: false, message: "CPF não encontrado, faça o registro." });
+        const [aluno] = await queryMySQL('SELECT id FROM users WHERE cpf = ?', [cpf]);
+        if (!aluno) {
+            return res.status(404).json({ success: false, message: "Usuário não encontrado." });
         }
+
+        const sql = "INSERT INTO acessos (aluno_id, data_entrada) VALUES (?, NOW())";
+        await queryMySQL(sql, [aluno.id]);
+
+        res.json({ success: true, message: "Entrada registrada com sucesso!" });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Erro ao consultar o banco de dados MySQL' });
+        res.status(500).json({ success: false, message: "Erro ao registrar entrada." });
     }
 });
 
-// Rota para registrar um novo usuário
-app.post('/registro', async (req, res) => {
-    const { nome, cpf, email, endereco } = req.body;
-
-    const sql = `INSERT INTO users (nome, cpf, email, endereco) VALUES (?, ?, ?, ?)`;
-    const params = [nome, cpf, email, endereco];
+// Rota para registrar saída
+app.post('/saida', async (req, res) => {
+    const { cpf } = req.body;
 
     try {
-        await queryMySQL(sql, params);
-        res.status(201).send("Usuário registrado com sucesso!");
+        const [aluno] = await queryMySQL('SELECT id FROM users WHERE cpf = ?', [cpf]);
+        if (!aluno) {
+            return res.status(404).json({ success: false, message: "Usuário não encontrado." });
+        }
+
+        const sql = `UPDATE acessos 
+                     SET data_saida = NOW() 
+                     WHERE aluno_id = ? AND data_saida IS NULL
+                     ORDER BY data_entrada DESC LIMIT 1`;
+        const result = await queryMySQL(sql, [aluno.id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(400).json({ success: false, message: "Nenhum registro de entrada encontrado." });
+        }
+
+        res.json({ success: true, message: "Saída registrada com sucesso!" });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao salvar no banco de dados MySQL' });
+        res.status(500).json({ success: false, message: "Erro ao registrar saída." });
     }
 });
 
@@ -97,4 +98,3 @@ app.post('/registro', async (req, res) => {
 app.listen(4000, () => {
     console.log('Servidor rodando na porta 4000');
 });
-

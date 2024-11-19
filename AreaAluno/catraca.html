@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catraca - Controle de Acesso</title>
+    <link rel="stylesheet" href="catraca.css">
+</head>
+<body>
+    <main id="principal">
+        <h2>Controle de Acesso</h2>
+        <form id="accessForm">
+            <input type="text" id="cpf" placeholder="Digite seu CPF" required>
+            <div class="button-container">
+                <button type="button" id="btnEntrada">Entrada</button>
+                <button type="button" id="btnSaida">Saída</button>
+            </div>
+        </form>
+        <p id="message"></p>
+    </main>
+    <script>
+        async function handleAccess(type) {
+            const cpf = document.getElementById('cpf').value;
+            const messageElement = document.getElementById('message');
+
+            if (!cpf) {
+                messageElement.textContent = "Por favor, digite seu CPF.";
+                messageElement.className = 'error';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/${type}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cpf })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    messageElement.textContent = result.message;
+                    messageElement.className = 'success';
+                    document.getElementById('cpf').value = '';
+                } else {
+                    messageElement.textContent = result.message;
+                    messageElement.className = 'error';
+                }
+            } catch (error) {
+                messageElement.textContent = "Erro ao processar a requisição.";
+                messageElement.className = 'error';
+            }
+        }
+
+        document.getElementById('btnEntrada').addEventListener('click', () => handleAccess('entrada'));
+        document.getElementById('btnSaida').addEventListener('click', () => handleAccess('saida'));
+    </script>
+</body>
+</html>
+
