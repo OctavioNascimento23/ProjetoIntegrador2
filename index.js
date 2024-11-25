@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const _dirname = path.dirname(_filename);
 
 // Configuração do banco de dados MySQL
 const dbConfig = {
@@ -78,15 +78,21 @@ app.post('/saida', async (req, res) => {
             return res.status(404).json({ success: false, message: "Usuário não encontrado." });
         }
 
-        const sql = `UPDATE acessos 
-                     SET data_saida = NOW() 
-                     WHERE aluno_id = ? AND data_saida IS NULL
-                     ORDER BY data_entrada DESC LIMIT 1`;
-        const result = await queryMySQL(sql, [aluno.id]);
+        // Verificar se há uma entrada sem saída registrada
+        const [registroAberto] = await queryMySQL(
+            `SELECT id FROM acessos 
+             WHERE aluno_id = ? AND data_saida IS NULL 
+             ORDER BY data_entrada DESC LIMIT 1`,
+            [aluno.id]
+        );
 
-        if (result.affectedRows === 0) {
-            return res.status(400).json({ success: false, message: "Nenhum registro de entrada encontrado." });
+        if (!registroAberto) {
+            return res.status(400).json({ success: false, message: "Nenhuma entrada registrada para saída." });
         }
+
+        // Atualizar o registro com a data de saída
+        const sql = "UPDATE acessos SET data_saida = NOW() WHERE id = ?";
+        await queryMySQL(sql, [registroAberto.id]);
 
         res.json({ success: true, message: "Saída registrada com sucesso!" });
     } catch (error) {
@@ -95,6 +101,6 @@ app.post('/saida', async (req, res) => {
 });
 
 // Iniciar o servidor
-app.listen(4000, () => {
-    console.log('Servidor rodando na porta 4000');
+app.listen(4001, () => {
+    console.log('Servidor rodando na porta 4001');
 });
