@@ -98,3 +98,10 @@ CREATE TABLE users (
 );
 
 
+CREATE TABLE acessos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id INT NOT NULL,
+    data_entrada DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data_saida DATETIME DEFAULT NULL,
+    FOREIGN KEY (aluno_id) REFERENCES users(id)
+);
