@@ -105,3 +105,7 @@ CREATE TABLE acessos (
     data_saida DATETIME DEFAULT NULL,
     FOREIGN KEY (aluno_id) REFERENCES users(id)
 );
+
+SELECT TIMESTAMPDIFF(SECOND, data_entrada, data_saida) AS tempo_segundos
+FROM acessos
+WHERE aluno_id = ? AND data_saida IS NOT NULL;
