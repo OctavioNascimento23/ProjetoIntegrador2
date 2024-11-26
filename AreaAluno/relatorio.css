@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('Imagens/gym.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Para o pseudo-elemento funcionar */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta a opacidade */
+    z-index: 1; /* Fica atrás do conteúdo */
+}
+
+.container {
+    position: relative; /* Para garantir que o conteúdo fique acima do fundo */
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2; /* Fica acima do background */
+    width: 80%;
+    max-width: 600px;
+}
+
+header {
+    margin-bottom: 2em;
+}
+
+h1 {
+    font-size: 3em;
+    color: #000;
+    margin: 0;
+}
+
+.relatorio {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.relatorio p {
+    margin-bottom: 1.5em;
+}
+
+.relatorio strong {
+    color: #000;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:focus {
+    outline: none;
+}
+
+footer {
+    margin-top: 2em;
+}
+
+button {
+    background-color: #2c3e50;
+    color: white;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #34495e;
+}
+
+#cpf,
+#horas-treinadas,
+#nivel {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+#cpf {
+    font-size: 1.2em;
+}
+
+#horas-treinadas,
+#nivel {
+    font-size: 1.5em;
+}
