@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Horas Treinadas</title>
+    <link rel="stylesheet" href="relatorio.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Relatório de Horas Treinadas</h1>
+        </header>
+        
+        <div class="relatorio">
+            <p><strong>CPF:</strong> <span id="cpf"></span></p>
+            <p><strong>Total de Horas Treinadas na Última Semana:</strong> <span id="horas-treinadas"></span> horas</p>
+            <p><strong>Classificação:</strong> <span id="nivel"></span></p>
+        </div>
+
+        <footer>
+            <button onclick="window.location.href='/entrar.html'">Voltar</button>
+        </footer>
+    </div>
+
+    <script>
+        // Pega o CPF diretamente da URL (por exemplo, /relatorio/123456789)
+        const cpf = window.location.pathname.split('/')[2];
+
+        // Faz a requisição ao servidor para obter o relatório
+        fetch(`/relatorio/${cpf}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('cpf').innerText = cpf;
+                    document.getElementById('horas-treinadas').innerText = data.horasTreinadas;
+                    document.getElementById('nivel').innerText = data.nivel;
+                } else {
+                    alert('Erro ao carregar o relatório');
+                }
+            })
+            .catch(error => console.error('Erro ao carregar o relatório:', error));
+
+    </script>
+</body>
+</html>
