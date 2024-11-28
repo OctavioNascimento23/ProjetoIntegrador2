@@ -1,0 +1,17 @@
+USE projeto2;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    cpf VARCHAR(20) UNIQUE,
+    email VARCHAR(255),
+    endereco VARCHAR(255)
+);
+
+CREATE TABLE acessos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id INT NOT NULL,
+    data_entrada DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data_saida DATETIME DEFAULT NULL,
+    FOREIGN KEY (aluno_id) REFERENCES users(id)
+);
