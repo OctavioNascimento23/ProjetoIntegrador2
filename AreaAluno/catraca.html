@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catraca - Controle de Acesso</title>
-    <link rel="stylesheet" href="catraca.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main id="principal">
@@ -20,16 +20,21 @@
     </main>
     <script>
         async function handleAccess(type) {
-            const cpf = document.getElementById('cpf').value;
+            const cpf = document.getElementById('cpf').value.trim();
             const messageElement = document.getElementById('message');
+            const btnEntrada = document.getElementById('btnEntrada');
+            const btnSaida = document.getElementById('btnSaida');
 
             if (!cpf) {
-                messageElement.textContent = "Por favor, digite seu CPF.";
-                messageElement.className = 'error';
+                displayMessage("Por favor, digite seu CPF.", "error");
                 return;
             }
 
             try {
+                // Desabilitar botões durante a requisição
+                btnEntrada.disabled = true;
+                btnSaida.disabled = true;
+
                 const response = await fetch(`/${type}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -39,17 +44,30 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    messageElement.textContent = result.message;
-                    messageElement.className = 'success';
-                    document.getElementById('cpf').value = '';
+                    displayMessage(result.message, "success");
+                    document.getElementById('cpf').value = ''; // Limpa o CPF
                 } else {
-                    messageElement.textContent = result.message;
-                    messageElement.className = 'error';
+                    displayMessage(result.message, "error");
                 }
             } catch (error) {
-                messageElement.textContent = "Erro ao processar a requisição.";
-                messageElement.className = 'error';
+                displayMessage("Erro ao processar a requisição.", "error");
+            } finally {
+                // Reativar botões após a requisição
+                btnEntrada.disabled = false;
+                btnSaida.disabled = false;
             }
+        }
+
+        function displayMessage(message, type) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = message;
+            messageElement.className = type;
+
+            // Limpar mensagem após 5 segundos
+            setTimeout(() => {
+                messageElement.textContent = '';
+                messageElement.className = '';
+            }, 5000);
         }
 
         document.getElementById('btnEntrada').addEventListener('click', () => handleAccess('entrada'));
@@ -57,4 +75,6 @@
     </script>
 </body>
 </html>
+
+
 
