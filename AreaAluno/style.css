@@ -1,0 +1,165 @@
+/* Estilo geral */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('Imagens/gym.jpg'); /* Substitua pela imagem desejada */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Containers principais */
+#principal,
+#loginForm,
+.container {
+    position: relative;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Títulos */
+h1, h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5em;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+/* Formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* Botões */
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Botões específicos */
+#btnEntrada {
+    background-color: #27ae60; /* Verde */
+    color: white;
+}
+
+#btnSaida {
+    background-color: #c0392b; /* Vermelho */
+    color: white;
+}
+
+button#form {
+    background-color: #2c3e50; /* Azul-escuro */
+    color: white;
+}
+
+button#registrar {
+    background-color: black;
+    color: white;
+}
+
+button:hover {
+    background-color: #34495e;
+}
+
+/* Mensagens */
+#message {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1em;
+    min-height: 20px;
+}
+
+.success {
+    color: #27ae60; /* Verde */
+}
+
+.error {
+    color: #c0392b; /* Vermelho */
+}
+
+/* Relatório específico */
+.relatorio {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.relatorio p {
+    margin-bottom: 1.5em;
+}
+
+.relatorio strong {
+    color: #000;
+}
+
+#cpf,
+#horas-treinadas,
+#nivel {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+#horas-treinadas,
+#nivel {
+    font-size: 1.5em;
+}
