@@ -1,43 +1,51 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrar</title>
-    <link rel="stylesheet" href="../Style/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main id="loginForm">
         <h2>Login</h2>
-        <form action="/login" method="post">
+        <form id="formLogin">
             <label for="cpf">Digite o seu CPF:</label><br>
             <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required><br><br>
-            <button type="submit" id="form">Entrar</button>
+            <button type="submit">Entrar</button>
         </form>
         <p id="message"></p> <!-- Elemento para exibir a mensagem -->
     </main>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        document.getElementById('formLogin').addEventListener('submit', async function(event) {
             event.preventDefault();
             const cpf = document.getElementById('cpf').value;
+            const messageElement = document.getElementById('message');
+
+            // Realiza a requisição ao servidor
             const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ cpf })
             });
 
             const result = await response.json();
-            const messageElement = document.getElementById('message');
+
+            // Exibe mensagem de sucesso ou erro
             if (result.success) {
                 messageElement.textContent = "Login bem-sucedido!";
                 messageElement.style.color = "green";
+                // Redireciona para o relatório após o login bem-sucedido
+                setTimeout(() => {
+                    window.location.href = `/relatorio/${cpf}`;
+                }, 2000);
             } else {
                 messageElement.textContent = "CPF não encontrado, faça o registro.";
                 messageElement.style.color = "red";
-                // Redirecionar para a página de registro após alguns segundos
+                // Redireciona para a página de registro após alguns segundos
                 setTimeout(() => {
                     window.location.href = '/registro.html';
                 }, 2000);
@@ -46,3 +54,6 @@
     </script>
 </body>
 </html>
+
+
+
