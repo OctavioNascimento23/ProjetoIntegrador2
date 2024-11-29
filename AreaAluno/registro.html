@@ -1,32 +1,73 @@
+<!-- HTML do registro -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Registro</title>
-    <link rel="stylesheet" href="..\Style\style.css"> <!-- Ajuste o caminho conforme necessário -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main id="principal">
         <h2>Registro</h2>
-        <form action="/registro" method="POST" id="registroForm">
+        <form id="registroForm">
             <label for="nome">Nome:</label>
             <input type="text" name="nome" id="nome" required>
-            
+
             <label for="cpf">CPF:</label>
             <input type="text" name="cpf" id="cpf" required>
-            
+
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" required>
-            
+
             <label for="endereco">Endereço:</label>
             <input type="text" name="endereco" id="endereco" required>
 
             <button type="submit">Registrar</button>
         </form>
-        <p id="message"></p> <!-- Para mensagens de sucesso ou erro -->
+        <p id="message"></p> <!-- Parágrafo para exibir a mensagem de erro ou sucesso -->
     </main>
+
     <script>
-        // JavaScript para o registro...
+        document.getElementById('registroForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const cpf = document.getElementById('cpf').value;
+    const email = document.getElementById('email').value;
+    const endereco = document.getElementById('endereco').value;
+
+    console.log("Enviando dados:", { nome, cpf, email, endereco });
+
+    try {
+        const response = await fetch('/registro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, cpf, email, endereco })
+        });
+
+        const result = await response.json();
+        console.log("Resposta do servidor:", result);
+
+        const messageElement = document.getElementById('message');
+        if (response.ok && result.success) {
+            messageElement.textContent = result.message; // Exibe mensagem de sucesso
+            messageElement.style.color = 'green';
+        } else {
+            messageElement.textContent = result.message; // Exibe mensagem de erro
+            messageElement.style.color = 'red';
+        }
+    } catch (error) {
+        console.error('Erro ao enviar dados para o backend', error);
+        const messageElement = document.getElementById('message');
+        messageElement.textContent = 'Erro ao registrar o usuário.';
+        messageElement.style.color = 'red';
+    }
+});
+
     </script>
 </body>
 </html>
+
+
