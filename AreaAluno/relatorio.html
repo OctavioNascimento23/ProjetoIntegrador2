@@ -4,43 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Horas Treinadas</title>
-    <link rel="stylesheet" href="relatorio.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Relatório de Horas Treinadas</h1>
         </header>
-        
         <div class="relatorio">
             <p><strong>CPF:</strong> <span id="cpf"></span></p>
             <p><strong>Total de Horas Treinadas na Última Semana:</strong> <span id="horas-treinadas"></span> horas</p>
             <p><strong>Classificação:</strong> <span id="nivel"></span></p>
         </div>
-
         <footer>
-            <button onclick="window.location.href='/entrar.html'">Voltar</button>
+            <button onclick="window.location.href='entrar.html'">Voltar</button>
         </footer>
     </div>
-
     <script>
-        // Pega o CPF diretamente da URL (por exemplo, /relatorio/123456789)
-        const cpf = window.location.pathname.split('/')[2];
+        // Função para buscar os dados do relatório
+        async function fetchReport() {
+            const cpf = new URLSearchParams(window.location.search).get('cpf');
+            const cpfElement = document.getElementById('cpf');
+            const horasElement = document.getElementById('horas-treinadas');
+            const nivelElement = document.getElementById('nivel');
 
-        // Faz a requisição ao servidor para obter o relatório
-        fetch(`/relatorio/${cpf}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('cpf').innerText = cpf;
-                    document.getElementById('horas-treinadas').innerText = data.horasTreinadas;
-                    document.getElementById('nivel').innerText = data.nivel;
+            // Exibe o CPF na página
+            cpfElement.textContent = cpf;
+
+            try {
+                const response = await fetch(`/relatorio/${cpf}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    // Atualiza o relatório com as horas e classificação
+                    horasElement.textContent = result.horasTreinadas;
+                    nivelElement.textContent = result.nivel;
                 } else {
-                    alert('Erro ao carregar o relatório');
+                    // Caso não consiga pegar as informações
+                    horasElement.textContent = "Erro ao carregar dados.";
+                    nivelElement.textContent = "Erro ao carregar dados.";
                 }
-            })
-            .catch(error => console.error('Erro ao carregar o relatório:', error));
+            } catch (error) {
+                horasElement.textContent = "Erro ao carregar dados.";
+                nivelElement.textContent = "Erro ao carregar dados.";
+            }
+        }
 
+        // Chama a função ao carregar a página
+        fetchReport();
     </script>
 </body>
 </html>
+
+
+
+
+
+
