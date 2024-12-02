@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Geral de Alunos</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Relatório Geral de Alunos</h1>
+        </header>
+        <div class="filtros">
+            <div>
+                <label for="minHoras">Horas Mínimas:</label>
+                <input type="number" id="minHoras" name="minHoras">
+            </div>
+            <div>
+                <label for="maxHoras">Horas Máximas:</label>
+                <input type="number" id="maxHoras" name="maxHoras">
+            </div>
+            <div>
+                <button onclick="fetchReport()">Filtrar</button>
+            </div>
+        </div>
+        <div class="relatorio">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Total de Horas Treinadas</th>
+                        <th>Classificação</th>
+                    </tr>
+                </thead>
+                <tbody id="relatorioBody">
+                    <!-- Dados serão inseridos aqui -->
+                </tbody>
+            </table>
+        </div>
+        <footer>
+            <button onclick="window.location.href='index.html'">Voltar</button>
+        </footer>
+    </div>
+    <script>
+        async function fetchReport() {
+            const minHoras = document.getElementById('minHoras').value;
+            const maxHoras = document.getElementById('maxHoras').value;
+            const relatorioBody = document.getElementById('relatorioBody');
+
+            let query = `http://localhost:3000/relatorio-geral?`;
+            if (minHoras) query += `minHoras=${minHoras}&`;
+            if (maxHoras) query += `maxHoras=${maxHoras}`;
+
+            try {
+                const response = await fetch(query);
+                const data = await response.json();
+
+                if (response.ok) {
+                    relatorioBody.innerHTML = '';
+                    data.forEach(aluno => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${aluno.name}</td>
+                            <td>${aluno.totalHours}</td>
+                            <td>${aluno.classification}</td>
+                        `;
+                        relatorioBody.appendChild(row);
+                    });
+                } else {
+                    alert('Erro ao obter relatório.');
+                }
+            } catch (error) {
+                alert('Erro ao conectar com o servidor. Tente novamente.');
+            }
+        }
+
+        // Chama a função ao carregar a página
+        window.onload = fetchReport;
+    </script>
+</body>
+</html>

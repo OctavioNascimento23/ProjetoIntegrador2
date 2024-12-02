@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Horas Treinadas</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Relatório de Horas Treinadas</h1>
+        </header>
+        <div class="relatorio">
+            <p><strong>CPF:</strong> <span id="cpf"></span></p>
+            <p><strong>Total de Horas Treinadas na Última Semana:</strong> <span id="horas-treinadas"></span> horas</p>
+            <p><strong>Classificação:</strong> <span id="nivel"></span></p>
+        </div>
+        <footer>
+            <button onclick="window.location.href='entrar.html'">Voltar</button>
+        </footer>
+    </div>
+    <script>
+        // Função para buscar os dados do relatório
+        async function fetchReport() {
+            const cpf = new URLSearchParams(window.location.search).get('cpf');
+            const cpfElement = document.getElementById('cpf');
+            const horasElement = document.getElementById('horas-treinadas');
+            const nivelElement = document.getElementById('nivel');
+
+            // Exibe o CPF na página
+            cpfElement.textContent = cpf;
+
+            try {
+                const response = await fetch(`http://localhost:3000/relatorio?cpf=${cpf}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    horasElement.textContent = data.totalHours;
+                    nivelElement.textContent = data.classification;
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('Erro ao buscar o relatório. Tente novamente.');
+            }
+        }
+
+        // Chama a função ao carregar a página
+        window.onload = fetchReport;
+    </script>
+</body>
+</html>

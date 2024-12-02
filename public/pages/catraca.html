@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catraca - Controle de Acesso</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <main id="principal">
+        <h2>Controle de Acesso</h2>
+        <form id="accessForm">
+            <input type="text" id="cpf" placeholder="Digite seu CPF" required>
+            <button type="button" id="btnEntrada">Entrada</button>
+            <button type="button" id="btnSaida">Saída</button>
+        </form>
+        <p id="message"></p>
+    </main>
+    <script>
+        async function handleAccess(type) {
+            const cpf = document.getElementById('cpf').value.trim();
+            const messageElement = document.getElementById('message');
+
+            if (!cpf) {
+                displayMessage("Por favor, digite seu CPF.", "error");
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/${type}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cpf })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    displayMessage(result.message, "success");
+                } else {
+                    displayMessage(result.message, "error");
+                }
+            } catch (error) {
+                displayMessage("Erro ao conectar com o servidor. Tente novamente.", "error");
+            }
+        }
+
+        function displayMessage(message, type) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = message;
+            messageElement.className = type;
+        }
+
+        document.getElementById('btnEntrada').addEventListener('click', () => handleAccess('entrada'));
+        document.getElementById('btnSaida').addEventListener('click', () => handleAccess('saida'));
+    </script>
+</body>
+</html>
