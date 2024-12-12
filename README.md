@@ -71,7 +71,8 @@ Nosso segundo projeto integrador se trata de um sistema para academia. O sistema
 │   │   └── style.css       # Estilo das páginas
 │   ├── images
 │   │   └── gym.jpg         # Imagens utilizadas no projeto
-│   └── js                  # Pasta descontinuada para scripts gerais
+│   └── js                  
+│   │   └── scripts.js      # Pasta descontinuada para scripts gerais
 │   ├── pages
 │   │   ├── catraca.html        # Página de Controle de Acesso
 │   │   ├── entrar.html         # Página de Login
