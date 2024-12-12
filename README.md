@@ -85,4 +85,4 @@ Nosso segundo projeto integrador, se trata de um sistema para academia. O sistem
 
 ## Licença
 
-Este projeto é licenciado sob a [MIT License](LICENSE).
+Este projeto pertence aos integrantes do repositório, que formar o Time 6 de Projeto Integrador do segundo semestre de Sistemas de Informação, turma 0101 - 2024 da PUC Campinas, lecionados pelo professor José Marcelo Traina Chacon e a professora Daniele Junqueira Frosoni.
