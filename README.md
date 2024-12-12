@@ -1,6 +1,7 @@
 # Projeto Integrador 2
 
-Nosso segundo projeto integrador, se trata de um sistema para academia. O sistema em questão irá se dividir em 3 partes, computador do aluno, totem de autoatendimento na portaria da academia e computador do gerente da academia. Utilizamos este repositório somente para armazenamento do projeto.
+Nosso segundo projeto integrador se trata de um sistema para academia. O sistema em questão irá se dividir em 3 partes: computador do aluno, totem de autoatendimento na portaria da academia e computador do gerente da academia. Utilizamos este repositório somente para armazenamento do projeto.
+
 ## Funcionalidades
 
 ### 1. Área do Aluno
@@ -64,17 +65,24 @@ Nosso segundo projeto integrador, se trata de um sistema para academia. O sistem
 ├── db
 │   ├── connection.js       # Arquivo de conexão com o banco de dados
 │   ├── projetointegrador2.sql  # Script para criação do banco de dados
+├── node_modules            # Módulos instalados via npm
 ├── public
 │   ├── css
 │   │   └── style.css       # Estilo das páginas
-│   └── js
-│       └── scripts.js      # Scripts gerais
-├── pages
-│   ├── index.html          # Página inicial (Área do Aluno)
-│   ├── catraca.html        # Página de Controle de Acesso
-│   └── gerente.html        # Página do Gerente
-├── server.js               # Arquivo principal do servidor
+│   ├── images
+│   │   └── gym.jpg         # Imagens utilizadas no projeto
+│   └── js                  # Pasta descontinuada para scripts gerais
+│   ├── pages
+│   │   ├── catraca.html        # Página de Controle de Acesso
+│   │   ├── entrar.html         # Página de Login
+│   │   ├── gerente.html        # Página do Gerente
+│   │   ├── index.html          # Página inicial (Área do Aluno)
+│   │   ├── registro.html       # Página de Registro de Aluno
+│   │   └── relatorio.html      # Página de Relatório Semanal
+├── routes
 ├── package.json            # Dependências e scripts do projeto
+├── package-lock.json       # Lockfile do npm
+├── server.js               # Arquivo principal do servidor
 └── README.md               # Documentação do projeto
 ```
 
@@ -85,4 +93,4 @@ Nosso segundo projeto integrador, se trata de um sistema para academia. O sistem
 
 ## Licença
 
-Este projeto pertence aos integrantes do repositório, que formar o Time 6 de Projeto Integrador do segundo semestre de Sistemas de Informação, turma 0101 - 2024 da PUC Campinas, lecionados pelo professor José Marcelo Traina Chacon e a professora Daniele Junqueira Frosoni.
+Este projeto pertence aos integrantes do repositório, que formam o Time 6 de Projeto Integrador do segundo semestre de Sistemas de Informação, turma 0101 - 2024 da PUC Campinas, lecionados pelo professor José Marcelo Traina Chacon e a professora Daniele Junqueira Frosoni.
