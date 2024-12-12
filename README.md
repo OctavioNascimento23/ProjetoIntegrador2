@@ -64,22 +64,22 @@ Nosso segundo projeto integrador se trata de um sistema para academia. O sistema
 ```
 ├── db
 │   ├── connection.js       # Arquivo de conexão com o banco de dados
-│   ├── projetointegrador2.sql  # Script para criação do banco de dados
+│   └── projetointegrador2.sql  # Script para criação do banco de dados
 ├── node_modules            # Módulos instalados via npm
 ├── public
 │   ├── css
 │   │   └── style.css       # Estilo das páginas
 │   ├── images
 │   │   └── gym.jpg         # Imagens utilizadas no projeto
-│   └── js                  
+│   ├── js                  
 │   │   └── scripts.js      # Pasta descontinuada para scripts gerais
-│   ├── pages
-│   │   ├── catraca.html        # Página de Controle de Acesso
-│   │   ├── entrar.html         # Página de Login
-│   │   ├── gerente.html        # Página do Gerente
-│   │   ├── index.html          # Página inicial (Área do Aluno)
-│   │   ├── registro.html       # Página de Registro de Aluno
-│   │   └── relatorio.html      # Página de Relatório Semanal
+│   └── pages
+│       ├── catraca.html        # Página de Controle de Acesso
+│       ├── entrar.html         # Página de Login
+│       ├── gerente.html        # Página do Gerente
+│       ├── index.html          # Página inicial (Área do Aluno)
+│       ├── registro.html       # Página de Registro de Aluno
+│       └── relatorio.html      # Página de Relatório Semanal
 ├── routes
 ├── package.json            # Dependências e scripts do projeto
 ├── package-lock.json       # Lockfile do npm
